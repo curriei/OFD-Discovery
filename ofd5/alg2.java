@@ -15,12 +15,15 @@ import java.util.List;
  */
 public class alg2 {
     public static void main(String[] args) throws Exception{
-        String fileName = "clinicaltrials_" + args[0] + ".csv";
+        String csv_delim = args[0];
+        Integer threshold = Integer.parseInt(args[1]);
+        String fileName = args[2];
+        
         List<String> ontologyAttributes = new ArrayList<>();
-        for(int i=1; i<args.length; i++){
+        for(int i=3; i<args.length; i++){
             ontologyAttributes.add(args[i]);
         }
         
-        OFD5.ofdAlgorithm2(",", 3, ontologyAttributes, fileName);
+        OFD5.ofdAlgorithm2(csv_delim, threshold, ontologyAttributes, fileName);
     }
 }
