@@ -9,5 +9,8 @@ PRIOR TO RUNNING:
 RUNNING:
   Use with RDF_OFD.py; alg1.java should be run first, followed by RDF_OFD.py, finally followed by alg2.java.
 
-  Both alg1.java and alg2.java must be run with at least 3 arguments passed to them.  
+  Both alg1.java and alg2.java must be run with at least 3 arguments passed to them in the following order: csv delimiter, IsA threshold,     fileName.
+  Following these three arguments, pass each of the attributes which relate to an ontology as separate arguments to the commands.
   
+
+Please email Ian Currie at curriei@mcmaster.ca with any further questions.
