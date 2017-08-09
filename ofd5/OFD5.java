@@ -78,7 +78,7 @@ public class OFD5 {
             }
         });
         
-        travLattice(attList, ontologyAttributes, length);
+        travLattice(attList, ontologyAttributes, length, threshold_value);
         
         long stop = System.nanoTime();
         double dur = ((double) stop - start)/1000000000;
@@ -87,7 +87,7 @@ public class OFD5 {
     }
     
     //traverses the right side of the OFD's, and finds all OFD's to each given attribute.
-    private static void travLattice(List<String> attList, List<String> ontAttList, Integer length){
+    private static void travLattice(List<String> attList, List<String> ontAttList, Integer length, Integer threshold){
         for(String att:attList){
             passedOFD.clear();
             fd.put(att, new HashSet<>());
@@ -97,12 +97,12 @@ public class OFD5 {
             }
             List<String> leftSide = new ArrayList<>(attList);
             leftSide.remove(att);
-            findOFD(1,att, ontAttList, leftSide, length);
+            findOFD(1,att, ontAttList, leftSide, length, threshold);
         }
     }
     
     //recursively calls through the different "levels" of OFD's (level 1 finds 1:1 relationships, level 2 finds 2:1, etc.)
-    private static void findOFD(Integer level, String att, List<String> ontAtts, List<String> attList, Integer length){
+    private static void findOFD(Integer level, String att, List<String> ontAtts, List<String> attList, Integer length, Integer threshold){
         Set<String> leftKeySet = new HashSet<>();
         List<List<Integer>> baseSep = new ArrayList<>();
         times.putIfAbsent(level, 0D);
@@ -110,19 +110,19 @@ public class OFD5 {
         
         Long start = System.nanoTime();
         
-        boolean findMore = leftSideRec(leftKeySet, att, level, 1, baseSep, ontAtts, attList, length);
+        boolean findMore = leftSideRec(leftKeySet, att, level, 1, baseSep, ontAtts, attList, length, threshold);
         
         Long stop = System.nanoTime();
         Double dur = times.get(level) + ((double) stop - start)/1000000000;
         times.replace(level,dur);
         
         if(findMore && level<attList.size()-1){
-            findOFD(level+1,att,ontAtts, attList, length);
+            findOFD(level+1,att,ontAtts, attList, length, threshold);
         }
     }
     
     //recursively goes through all combinations of the currently remaining attributes and determines if an OFD exists with that set of left Side attributes
-    private static boolean leftSideRec(Set<String> leftKeySet, String rAtt, Integer maxLevel, Integer currentLevel, List<List<Integer>> separation, List<String> ontAtts, List<String> attList, Integer length){
+    private static boolean leftSideRec(Set<String> leftKeySet, String rAtt, Integer maxLevel, Integer currentLevel, List<List<Integer>> separation, List<String> ontAtts, List<String> attList, Integer length, Integer threshold){
         List<String> attRem = new ArrayList<>(attList);
         boolean findMore = false;
         
@@ -147,7 +147,7 @@ public class OFD5 {
                 }
                 if(newSep.size()!= length){
                     if(currentLevel<maxLevel){
-                        findMore = leftSideRec(currentLeftKeySet,rAtt,maxLevel,currentLevel+1,newSep,ontAtts,attRem, length) || findMore;
+                        findMore = leftSideRec(currentLeftKeySet,rAtt,maxLevel,currentLevel+1,newSep,ontAtts,attRem, length, threshold) || findMore;
                     }else{
                         Set<String> keySet = new HashSet<>(currentLeftKeySet);
                         keySet.add(rAtt);
@@ -155,7 +155,7 @@ public class OFD5 {
                             passedOFD.add(currentLeftKeySet);
                             fd.get(rAtt).add(currentLeftKeySet);
                         }else if(ontAtts.contains(rAtt)){
-                            Integer value = ofdHolds(rAtt,keySet,newSep);
+                            Integer value = ofdHolds(rAtt,keySet,newSep, threshold);
                             switch (value) {
                                 case 1:
                                     passedOFD.add(currentLeftKeySet);
@@ -163,7 +163,7 @@ public class OFD5 {
                                     break;
                                 case 2:
                                     passedOFD.add(currentLeftKeySet);
-                                    synofd.get(rAtt).add(currentLeftKeySet);
+                                    isaofd.get(rAtt).add(currentLeftKeySet);
                                     break;
                                 default:
                                     findMore = true;
@@ -199,11 +199,12 @@ public class OFD5 {
     }
     
     //Using partitions determined in fdHolds, ofdHolds determines if isa or synonym ontologies allow the data to satisfy the OFD
-    private static Integer ofdHolds(String rAtt, Set<String> keySet, List<List<Integer>> sep){
+    private static Integer ofdHolds(String rAtt, Set<String> keySet, List<List<Integer>> sep, Integer threshold){
         List<List<Integer>> rSep = new ArrayList<>(PART.get(keySet));
         List<List<Integer>> lSep = new ArrayList<>(sep);
             
-        Boolean usedIsa = false;
+        Boolean isaHolds = false;
+        Boolean synHolds = false;
         while(!lSep.isEmpty()){
             List<Integer> equiv = lSep.get(0);
             if(equiv.size() == 1 || rSep.contains(equiv)){
@@ -220,17 +221,20 @@ public class OFD5 {
                 }
                 rSep.removeAll(remove);
                 lSep.remove(equiv);
-                Boolean isa = false;
+                Boolean isa = true;
                 List<List<String>> table = OntFormat.getTable(rAtt);
                 String first = table.get(check.get(0)).get(0);
-                for(Integer index:check){
-                    if(!first.equals(table.get(index).get(0))){
-                        isa = true;
-                        usedIsa = true;
-                        break;
+                if(check.size() == 2){
+                    isa = false;
+                    for(Integer index:check){
+                        if(!first.equals(table.get(index).get(0))){
+                            isa = true;
+                            break;
+                        }
                     }
+                    synHolds = true;
                 }
-                if(isa){
+                if(isa && threshold>0 && check.size() <= threshold + 1){
                     Integer maxIndex = 0;
                     Integer startIndex = 0;
                     for(Integer index:check){
@@ -246,13 +250,16 @@ public class OFD5 {
                             return 0;
                         }
                     } 
+                    isaHolds = true;
                 }
             }
         }
-        if(usedIsa){
+        if(isaHolds){
             return 2;
-        }else{
+        }else if(synHolds){
             return 1;
+        }else{
+            return 0;
         }
     }
 
