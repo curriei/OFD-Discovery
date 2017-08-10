@@ -204,7 +204,7 @@ public class OFD5 {
         List<List<Integer>> lSep = new ArrayList<>(sep);
             
         Boolean isaHolds = false;
-        Boolean synHolds = false;
+        Boolean synHolds = true;
         while(!lSep.isEmpty()){
             List<Integer> equiv = lSep.get(0);
             if(equiv.size() == 1 || rSep.contains(equiv)){
@@ -221,19 +221,19 @@ public class OFD5 {
                 }
                 rSep.removeAll(remove);
                 lSep.remove(equiv);
-                Boolean isa = true;
+                Boolean isa = false;
                 List<List<String>> table = OntFormat.getTable(rAtt);
                 String first = table.get(check.get(0)).get(0);
-                if(check.size() == 2){
-                    isa = false;
+                if(synHolds){
                     for(Integer index:check){
                         if(!first.equals(table.get(index).get(0))){
                             isa = true;
+                            synHolds = false;
                             break;
                         }
                     }
-                    synHolds = true;
                 }
+                
                 if(isa && threshold>0 && check.size() <= threshold + 1){
                     Integer maxIndex = 0;
                     Integer startIndex = 0;
