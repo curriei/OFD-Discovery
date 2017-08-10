@@ -24,6 +24,8 @@ import java.util.Set;
  * @author Ian Currie
  */
 public class FileFormat {
+    
+    //reads the given csv file and returns a two dimentional list representing the file. 
     public static List<List<String>> csvInput(String delim, String file) throws IOException{
         ArrayList<List<String>> csvList = new ArrayList<>();
         String lineString;
@@ -39,6 +41,7 @@ public class FileFormat {
         return csvList;
     }
     
+    //converts a two dimentional list into a Map of the attribute names to the values related to said attribute
     public static Map<String, List<String>> toMap(List<List<String>> csvList){
         Map<String, List<String>> finalMap = new HashMap<>();
         
@@ -52,10 +55,12 @@ public class FileFormat {
         return finalMap;
     }
     
+    //for each attribute in "columns" getEquiv finds all indexes with the same value associated to them, and adds them to a list.  
+    //It then does this for all values in said column, and makes a list of the value lists.  The two dimentional list is returned for each value in a map
     public static Map<Set<String>, List<List<Integer>>> getEquiv(Map<String, List<String>> columns, Integer length, List<String> ontologyAttributes){
         Map<Set<String>, List<List<Integer>>> map = new HashMap<>();
         Iterator<Map.Entry<String,List<String>>> columnIt = columns.entrySet().iterator();
-        List<Integer> temp = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();             //temp is a list of all indexes that have already been added to an equiv list, prevents duplicating
         while(columnIt.hasNext()){
             List<List<Integer>> listOfValues = new ArrayList<>();
             Map.Entry<String,List<String>> entry = columnIt.next();
@@ -76,7 +81,7 @@ public class FileFormat {
                 }
             }
             temp.clear();
-            if(listOfValues.size()<length || ontologyAttributes.contains(attribute)){
+            if(listOfValues.size()<length || ontologyAttributes.contains(attribute)){   //if the attribute is a key, it can be ignored through all calculations, since keys are not being considered
                 Set<String> attSet = new HashSet<>();
                 attSet.add(attribute);
                 map.put(attSet,listOfValues);
