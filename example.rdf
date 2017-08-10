@@ -33,7 +33,15 @@
 	<rdf:Description rdf:about="http://example.org/IbuProfen">
 		<ex:is_a rdf:resource="http://example.org/PainKiller"/>
 	</rdf:Description>
-    
+    	<rdf:Description rdf:about="http://example.org/Narcotic"/>
+		<ex:is_a rdf:resource="http://example.org/Medicine"/>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/PainKiller"/>
+		<ex:is_a rdf:resource="http://example.org/Medicine"/>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/Antibiotic"/>
+		<ex:is_a rdf:resource="http://example.org/Medicine"/>
+	</rdf:Description>
     	<rdf:Description rdf:about="http://example.org/IbuProfen">
 		<ex:synonym>
 			<rdf:Alt>
