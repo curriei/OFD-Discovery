@@ -132,12 +132,12 @@ public class OFD5 {
             currentLeftKeySet.add(lAtt);
             if(passedOFD.stream().map((ofd)->{return currentLeftKeySet.containsAll(ofd);}).noneMatch((temp)->(temp))){
                 List<List<Integer>> newSep;
-                if(PART.containsKey(currentLeftKeySet)){
+                if(PART.containsKey(currentLeftKeySet)){    // if the current separation has already been determined, it avoids recalculating it
                     newSep = PART.get(currentLeftKeySet);
                 }else{
                     Set<String> lAttSet = new HashSet<>();
                     lAttSet.add(lAtt);
-                    newSep = separation.stream().flatMap(sl1 -> PART.get(lAttSet).stream().map(sl2 -> {
+                    newSep = separation.stream().flatMap(sl1 -> PART.get(lAttSet).stream().map(sl2 -> {     //calculates the new separation
                         List<Integer> lout = new ArrayList<>();
                         lout.addAll(sl1);
                         lout.retainAll(sl2);
@@ -187,7 +187,7 @@ public class OFD5 {
             Set<String> rAttS = new HashSet<>();
             rAttS.add(rAtt);
             List<List<Integer>> allSep;
-            allSep = sep.stream().flatMap(sl1 -> PART.get(rAttS).stream().map(sl2 -> {
+            allSep = sep.stream().flatMap(sl1 -> PART.get(rAttS).stream().map(sl2 -> {      //same process used in leftSideRec(), calculates the new separation
                 List<Integer> lout = new ArrayList<>();
                 lout.addAll(sl1);
                 lout.retainAll(sl2);
@@ -237,7 +237,7 @@ public class OFD5 {
                 if(isa && threshold>0 && check.size() <= threshold + 1){
                     Integer maxIndex = 0;
                     Integer startIndex = 0;
-                    for(Integer index:check){
+                    for(Integer index:check){                   //finds the value in check with the value at the lowest point on the ontology
                         Integer in = table.get(index).indexOf(first);
                         if(in > maxIndex){
                             maxIndex = in;
@@ -245,7 +245,7 @@ public class OFD5 {
                         }
                     }
                     List<String> compare = table.get(startIndex);
-                    for(Integer index:check){
+                    for(Integer index:check){                       //determines if all other values in check are ancestors of the lowest point within the threshold
                         if(!compare.contains(table.get(index).get(0))){
                             return 0;
                         }
