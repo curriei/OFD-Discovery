@@ -8,8 +8,8 @@ RUNNING INSTRUCTIONS:
   4. The dataset which you are analysing must be placed in the folder set to CSV_LOCATION.
   5. Run alg1.java, pass it at least three arguments in the following order: csv delimiter, Ontology IsA threshold, csv file name.  Following these three arguments, pass the names of all attributes which have an ontology relating to them.
   6. alg1.java will create files with the name *attributeName*.csv in the folder set to ONTOLOGY_LOCATION.
-  7. For each attribute which is associated with an ontology, run RDF_OFD.py, passing it two arguments: the name of the .rdf file representing the ontology for said attribute, and *attributeName*.csv.  For example, say IsA_Medicine.rdf is associated with a column titled "medicine", your comman should look like this:
-    $python RDF_OFD.py IsA_Medicine.rdf medicine.csv
+  7. For each attribute which is associated with an ontology, run RDF_OFD.py, passing it two arguments: the name of the .rdf file representing the ontology for said attribute, and *attributeName*.csv.  For example, say IsA_Medicine.rdf is associated with a column titled "medicine", your command should look like this:
+        $python RDF_OFD.py IsA_Medicine.rdf medicine.csv
   8. Each time it is run, RDF_OFD.py will output a csv file to the ONTOLOGY_LOCATION folder, titled *attributeName*out.csv.
   9. Run alg2.java, passing it the exact same arguments that you passed alg1.java (see step 5).
   10. alg2.java will create an output file named *fileName*_out.txt in the output folder, it will contain all found OFD's, as well as the time spent at various stages of the experiment (if you completed step 2).
