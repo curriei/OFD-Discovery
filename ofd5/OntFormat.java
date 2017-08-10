@@ -25,6 +25,7 @@ import java.util.Map;
 public class OntFormat {
     private static final Map<String, List<List<String>>> ONT_TABLE = new HashMap<>();
     
+    //outputColumns outputs the values of an Ontology Attribute to be used by RDF_OFD.py to create the .csv files which represent the ontology for lattice traversal
     public static void outputColumns(List<List<String>> csvList, List<String> ontologyAttributes, String ont_loca) throws IOException{
         for(String attribute: ontologyAttributes){
             String columnLocation = ont_loca + attribute + ".csv";
@@ -40,6 +41,8 @@ public class OntFormat {
             print.close();  
         }
     }
+    
+    //takes the output from RDF_OFD.py and stores the information in ONT_TABLE to be called later by method "getTable()"
     public static void getOnt(List<String> ontologyAttributes, String delim, Integer threshold, String ont_loca, Integer length) throws IOException{
         for(String attribute:ontologyAttributes){
             BufferedReader scan;
