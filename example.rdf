@@ -9,7 +9,7 @@
 		<ex:is_a rdf:resource="http://example.org/IsAParent"/>
 	</rdf:Description>
     
-    <rdf:Description rdf:about="http://example.org/SynonymExample">
+    	<rdf:Description rdf:about="http://example.org/SynonymExample">
 		<ex:synonym>
 			<rdf:Alt>
 				<rdf:li resource="http://example.org/SynonymousString1"/>
@@ -19,10 +19,12 @@
 		</ex:synonym>
 	</rdf:Description>
     
+	
+	
 	<rdf:Description rdf:about="http://example.org/Penicillin">
 		<ex:is_a rdf:resource="http://example.org/Antibiotic"/>
 	</rdf:Description>
-    <rdf:Description rdf:about="http://example.org/Codeine">
+    	<rdf:Description rdf:about="http://example.org/Codeine">
 		<ex:is_a rdf:resource="http://example.org/Narcotic"/>
 	</rdf:Description>
 	<rdf:Description rdf:about="http://example.org/Codifen">
@@ -32,7 +34,7 @@
 		<ex:is_a rdf:resource="http://example.org/PainKiller"/>
 	</rdf:Description>
     
-    <rdf:Description rdf:about="http://example.org/IbuProfen">
+    	<rdf:Description rdf:about="http://example.org/IbuProfen">
 		<ex:synonym>
 			<rdf:Alt>
 				<rdf:li resource="http://example.org/Advil"/>
