@@ -1,5 +1,11 @@
 # OFD-Discovery
-Discovers functional dependencies in a dataset using an ontology for added context.
+This program efficiantly discovers functional dependencies in a dataset using an ontology for added context. 
+
+CSV FORMAT:
+  The dataset being analysed should be stored in a .csv file with the first line of the file being the attribute names. The second line of the file and on should be populated by the tuples of the dataset.
+  
+RDF FORMAT:
+  When formatting the .rdf files to be used in your experiment, IsA relationships should be created with ex:is_a, Synonym relationships should be created with ex:synonym and a list of the alternate names.  See the included example RDF files for more information.
 
 RUNNING INSTRUCTIONS:
   1. Edit RDF5.java such that the variables CSV_LOCATION, ONTOLOGY_LOCATION and OUTPUT_FOLDER are set to folders on your machine.  Ensure you keep the same formatting from the previous examples, including the slash at the end of the last folder name.
