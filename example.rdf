@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:ex="http://example.org/">
+    
+	<rdf:Description rdf:about="http://example.org/IsAChild">
+		<ex:is_a rdf:resource="http://example.org/IsAParent"/>
+	</rdf:Description>
+    
+    <rdf:Description rdf:about="http://example.org/SynonymExample">
+		<ex:synonym>
+			<rdf:Alt>
+				<rdf:li resource="http://example.org/SynonymousString1"/>
+				<rdf:li resource="http://example.org/SynonymousString2"/>
+				<rdf:li resource="http://example.org/SynonymousString3"/>
+			</rdf:Alt>
+		</ex:synonym>
+	</rdf:Description>
+    
+	<rdf:Description rdf:about="http://example.org/Penicillin">
+		<ex:is_a rdf:resource="http://example.org/Antibiotic"/>
+	</rdf:Description>
+    <rdf:Description rdf:about="http://example.org/Codeine">
+		<ex:is_a rdf:resource="http://example.org/Narcotic"/>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/Codifen">
+		<ex:is_a rdf:resource="http://example.org/Narcotic"/>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/IbuProfen">
+		<ex:is_a rdf:resource="http://example.org/PainKiller"/>
+	</rdf:Description>
+    
+    <rdf:Description rdf:about="http://example.org/IbuProfen">
+		<ex:synonym>
+			<rdf:Alt>
+				<rdf:li resource="http://example.org/Advil"/>
+			</rdf:Alt>
+		</ex:synonym>
+	</rdf:Description>
+    
+</rdf:RDF>
