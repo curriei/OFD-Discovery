@@ -6,9 +6,12 @@ RUNNING INSTRUCTIONS:
   2. If you want to view the times of the experiment in the output file, uncomment the marked code at the bottom of RDF5.java within the method finalOutput().
   3. RDF_OFD.py, as well as any .rdf files being used must be placed in the folder set to ONTOLOGY_LOCATION.
   4. The dataset which you are analysing must be placed in the folder set to CSV_LOCATION.
-  5. Run alg1.java, pass it at least three arguments in the following order: csv delimiter, Ontology IsA threshold, csv file name.  Following these three arguments, pass the names of all attributes which have an ontology relating to them.
+  5. Run alg1.java, pass it at least three arguments in the following order: csv delimiter, Ontology IsA threshold, csv file name.  Following these three arguments, pass the names of all attributes which have an ontology relating to them. For example, a common command prompt for the code might look like the following:
+  ```
+  $ java ofd5.alg1 , 3 fileNameExample ontologyAttribute1 ontologyAttribute2
+  ```
   6. alg1.java will create files with the name *attributeName*.csv in the folder set to ONTOLOGY_LOCATION.
-  7. For each attribute which is associated with an ontology, run RDF_OFD.py, passing it two arguments: the name of the .rdf file representing the ontology for said attribute, and *attributeName*.csv.  For example, say IsA_Medicine.rdf is associated with a column titled "medicine", your command should look like this:
+  7. For each attribute which is associated with an ontology, run RDF_OFD.py, passing it two arguments: the name of the .rdf file representing the ontology for said attribute, and *attributeName*.csv.  For example, if IsA_Medicine.rdf is associated with a column titled "medicine", your command should look like this:
   ```
   $ python RDF_OFD.py IsA_Medicine.rdf medicine.csv
   ```
