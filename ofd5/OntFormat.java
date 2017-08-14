@@ -43,7 +43,7 @@ public class OntFormat {
             String lineStr;
             List<List<String>> attOntTable = new ArrayList<>();
             
-            scan = new BufferedReader(new FileReader(new File(ont_loca + attribute +"_"+length.toString()+ "out.csv")));
+            scan = new BufferedReader(new FileReader(new File(ont_loca + attribute + "out.csv")));
             while((lineStr = scan.readLine()) != null ){
                 List<String> line = new ArrayList<>(Arrays.asList(lineStr.split(delim)));
                 List<String> thrLine = line.subList(1,threshold + 2 > line.size() ? line.size() : threshold + 2);
