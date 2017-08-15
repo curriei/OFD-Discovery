@@ -25,5 +25,15 @@ RUNNING INSTRUCTIONS:
   9. Run alg2.java, passing it the exact same arguments that you passed alg1.java (see step 5).
   10. alg2.java will create an output file named *fileName*_out.txt in the output folder, it will contain all found OFD's, as well as the time spent at various stages of the experiment (if you completed step 2).
 
+Please find included in the *clinicaltrials example* folder all the files that are needed to run the code, as well as the output recieved from the example.  To run the example, follow the steps above; in steps 5, 7, and 9, the following commands were used:
+```
+$ java ofd5.alg1 , 1 clinicaltrials_7x50.csv disease medicine countrycode
+
+$ python RDF_OFD.py medicine.rdf medicine.csv
+$ python RDF_OFD.py disease.rdf disease.csv
+$ python RDF_OFT.py countrycode.rdf countrycode.csv
+
+$ java ofd5.alg2 , 1 clinicaltrials_7x50.csv disease medicine countrycode
+```
 
 Please email Ian Currie at curriei@mcmaster.ca with any further questions.
