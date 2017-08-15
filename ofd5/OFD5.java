@@ -21,11 +21,11 @@ public class OFD5 {
 
     //CSV_FOLDER, ONTOLOGY_LOCATION, & OUTPUT_FOLDER MUST be updated to their proper locations on your machine.
     //CSV_FOLDER contains the original dataset stored in a *.csv file.  
-    private static final String CSV_FOLDER = "/zhi/Desktop/CSVFormat/";
+    private static final String CSV_FOLDER = "/Users/ircur/Desktop/";
     //ONTOLOGY_LOCATION contains the RDF_OFD.py file, it is where algorithm1 will output ontology columns, and where algorithm2 will expect to find ontology.csv files
-    private static final String ONTOLOGY_LOCATION = "/zhi/Desktop/RDFFormat/";
+    private static final String ONTOLOGY_LOCATION = "/Users/ircur/Desktop/";
     //OUTPUT_FOLDER will be the folder to which the code outputs the final output *.txt file.
-    private static final String OUTPUT_FOLDER = "/zhi/Desktop/output/";
+    private static final String OUTPUT_FOLDER = "/Users/ircur/Desktop/";
     
     private static final Map<Set<String>, List<List<Integer>>> PART = new HashMap<>();
     private static final Set<Set<String>> passedOFD = new HashSet<>();
@@ -205,6 +205,7 @@ public class OFD5 {
             
         Boolean isaHolds = false;
         Boolean synHolds = true;
+        
         while(!lSep.isEmpty()){
             List<Integer> equiv = lSep.get(0);
             if(equiv.size() == 1 || rSep.contains(equiv)){
@@ -233,12 +234,12 @@ public class OFD5 {
                         }
                     }
                 }
-                
                 if(isa && threshold>0 && check.size() <= threshold + 1){
                     Integer maxIndex = 0;
-                    Integer startIndex = 0;
+                    Integer startIndex = check.get(0);
                     for(Integer index:check){                   //finds the value in check with the value at the lowest point on the ontology
                         Integer in = table.get(index).indexOf(first);
+                        
                         if(in > maxIndex){
                             maxIndex = in;
                             startIndex = index;
@@ -342,7 +343,7 @@ public class OFD5 {
             Long lMin = Math.round(Math.floor(time/60));
             Double lSec = time % 60;
             output.println(lMin.toString()+" minutes, "+ lSec.toString() + " seconds spent at level " + i.toString() +".");
-        }
-        output.close();*/
+        }*/
+        output.close();
     }
 }
