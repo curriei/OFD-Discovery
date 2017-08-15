@@ -1,0 +1,10 @@
+FD's found:
+	countrycode-->country
+	medicine-->disease
+	countrycode-->study_design
+
+Synonym OFD's found:
+	country-->countrycode
+
+IsA OFD's found:
+	disease-->medicine
