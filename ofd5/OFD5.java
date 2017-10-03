@@ -62,7 +62,7 @@ public class OFD5 {
         length = csvList.size()-1;
         
         csvMap = FileFormat.toMap(csvList);
-        OntFormat.getOnt(ontologyAttributes, csv_delim, threshold_value, ONTOLOGY_LOCATION, length);
+        OntFormat.getOnt(ontologyAttributes, csv_delim, threshold_value, ONTOLOGY_LOCATION);
         
         long start = System.nanoTime();
         
