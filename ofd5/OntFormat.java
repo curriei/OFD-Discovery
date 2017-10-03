@@ -37,13 +37,13 @@ public class OntFormat {
     }
     
     //takes the output from RDF_OFD.py and stores the information in ONT_TABLE to be called later by method "getTable()"
-    public static void getOnt(List<String> ontologyAttributes, String delim, Integer threshold, String ont_loca, Integer length) throws IOException{
+    public static void getOnt(List<String> ontologyAttributes, String delim, Integer threshold, String ont_loca) throws IOException{
         for(String attribute:ontologyAttributes){
             BufferedReader scan;
             String lineStr;
             List<List<String>> attOntTable = new ArrayList<>();
             
-            scan = new BufferedReader(new FileReader(new File(ont_loca + attribute +"_"+length.toString()+ "out.csv")));
+            scan = new BufferedReader(new FileReader(new File(ont_loca + attribute + "out.csv")));
             while((lineStr = scan.readLine()) != null ){
                 List<String> line = new ArrayList<>(Arrays.asList(lineStr.split(delim)));
                 List<String> thrLine = line.subList(1,threshold + 2 > line.size() ? line.size() : threshold + 2);
